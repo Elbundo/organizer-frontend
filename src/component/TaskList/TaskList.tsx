@@ -6,7 +6,7 @@ import TaskItem from './TaskItem/TaskItem'
 
 const TaskList: FC = () => {
 	const [text, setText] = useState<string>('')
-	const { data: tasks, error, isLoading } = useFetchAllTaskQuery('')
+	const { data: tasks, error, isLoading } = useFetchAllTaskQuery('ALL')
 	const [createTask] = useCreateTaskMutation()
 	return (
 		<div>
