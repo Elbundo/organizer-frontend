@@ -4,9 +4,9 @@ import { apiSlice } from './ApiService';
 
 export const taskApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
-		fetchAllTask: builder.query<ITask[], any>({
-			query: () => ({
-				url: '/tasks',
+		fetchAllTask: builder.query<ITask[], string>({
+			query: (type) => ({
+				url: `/tasks?type=${type}`,
 				method: 'GET',
 			}),
 			providesTags: result => ['Task']
@@ -22,14 +22,14 @@ export const taskApiSlice = apiSlice.injectEndpoints({
 		changeStatusTask: builder.mutation<ITask, ITask>({
 			query: (task) => ({
 				url: '/tasks',
-				method: 'PUT',
+				method: 'PATCH',
 				body: task
 			}),
 			invalidatesTags: ['Task']
 		}),
-		deleteTask: builder.mutation<any, ITask>({
-			query: (task) => ({
-				url: `/tasks/${task.id}`,
+		deleteTask: builder.mutation<any, number>({
+			query: (id) => ({
+				url: `/tasks/${id}`,
 				method: 'DELETE',
 			}),
 			invalidatesTags: ['Task']

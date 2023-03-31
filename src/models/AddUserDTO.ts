@@ -1,6 +1,8 @@
-import { IUser } from './User'
 
 export type AddUserDTO = {
-	user: IUser
-	password: string
+	id: number,
+	name: string
+	login: string,
+	password: string,
+	role: string
 }

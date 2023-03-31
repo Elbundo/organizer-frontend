@@ -8,12 +8,12 @@ import { IUser } from '../models/User';
 
 
 const Login: FC = () => {
-	const [username, setUsername] = useState<string>('')
+	const [login, setLogin] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [errorMsg, setErrorMsg] = useState('')
 	const navigate = useNavigate()
 
-	const [login, { isLoading }] = useLoginMutation()
+	const [loginFn, { isLoading }] = useLoginMutation()
 	const dispatch = useAppDispatch()
 
 	if (isLoading)
@@ -24,9 +24,9 @@ const Login: FC = () => {
 			<p>{errorMsg}</p>
 			<input
 				type="text"
-				value={username}
+				value={login}
 				onChange={(e) => {
-					setUsername(e.target.value)
+					setLogin(e.target.value)
 				}}
 			/>
 			<input
@@ -41,11 +41,11 @@ const Login: FC = () => {
 				setErrorMsg('')
 
 				try {
-					const userData = await login({ username, password }).unwrap()
+					const userData = await loginFn({ login, password }).unwrap()
 					const token = userData.accessToken
 					const user: IUser = jwt(token)
 					dispatch(setCredentials({ ...userData, user }))
-					setUsername('')
+					setLogin('')
 					setPassword('')
 					navigate('/')
 				} catch (err: any) {

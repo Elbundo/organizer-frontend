@@ -20,7 +20,7 @@ const TaskItem: FC<TaskItemProps> = ({ task }) => {
 			<div style={task.status ? { textDecoration: 'line-through' } : {}}>{task.text}</div>
 			<button onClick={async (e) => {
 				e.preventDefault()
-				await deleteTask(task)
+				await deleteTask(task.id)
 			}}>Удалить</button>
 		</div>
 	)

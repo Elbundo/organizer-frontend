@@ -1,12 +1,12 @@
 import { AddUserDTO } from '../models/AddUserDTO';
 import { IUser } from '../models/User';
-import { IUserTask } from '../models/UserTaskDTO';
+import { IUserInfo } from '../models/UserTaskDTO';
 import { apiSlice } from './ApiService';
 
 
 export const taskApiSlice = apiSlice.injectEndpoints({
 	endpoints: builder => ({
-		fetchAllUser: builder.query<IUserTask[], any>({
+		fetchAllUser: builder.query<IUserInfo[], any>({
 			query: () => ({
 				url: '/users',
 				method: 'GET',
@@ -21,16 +21,16 @@ export const taskApiSlice = apiSlice.injectEndpoints({
 			}),
 			invalidatesTags: ['User']
 		}),
-		dropPassword: builder.mutation<AddUserDTO, IUser>({
-			query: (user) => ({
-				url: `/users/${user.id}`,
+		dropPassword: builder.mutation<{ password: string }, number>({
+			query: (id) => ({
+				url: `/users/${id}/dropPassword`,
 				method: 'PATCH',
 			}),
 			invalidatesTags: ['User']
 		}),
-		deleteUser: builder.mutation<any, IUser>({
-			query: (user) => ({
-				url: `/users/${user.id}`,
+		deleteUser: builder.mutation<any, number>({
+			query: (id) => ({
+				url: `/users/${id}`,
 				method: 'DELETE',
 			}),
 			invalidatesTags: ['User']

@@ -1,9 +1,9 @@
 import { FC } from 'react'
-import { IUserTask } from '../../../models/UserTaskDTO'
+import { IUserInfo } from '../../../models/UserTaskDTO'
 import { useDeleteUserMutation, useDropPasswordMutation } from '../../../services/UserService'
 
 interface UserItemProps {
-	user: IUserTask
+	user: IUserInfo
 }
 
 const UserItem: FC<UserItemProps> = ({ user }) => {
@@ -12,17 +12,17 @@ const UserItem: FC<UserItemProps> = ({ user }) => {
 	return (
 		<div style={{ display: 'flex', gap: '20px' }}>
 			<div>{user.name}</div>
-			<div>{user.username}</div>
+			<div>{user.login}</div>
 			<div>{user.role}</div>
-			{user.tasks && <div>{user.tasks.length}</div>}
+			<div>{user.countTasks}</div>
 			<button onClick={async (e) => {
 				e.preventDefault()
-				await deleteUser(user)
+				await deleteUser(user.id)
 			}}>Удалить</button>
 			<button onClick={async (e) => {
 				e.preventDefault()
 				try {
-					const res = await dropPassword(user).unwrap()
+					const res = await dropPassword(user.id).unwrap()
 					alert("Пароль: " + res.password)
 				} catch (error) {
 					alert("Ошибка:" + error)

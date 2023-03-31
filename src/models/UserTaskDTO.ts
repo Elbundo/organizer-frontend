@@ -1,10 +1,8 @@
-import { IUser } from './User'
-import { ITask } from './Task'
 
-export interface IUserTask {
+export interface IUserInfo {
 	id: number
-	username: string
 	name: string
+	login: string
 	role: string
-	tasks: ITask[]
+	countTasks: number
 }
